@@ -1,12 +1,13 @@
 <template>
     <div class="wrapper">
-        <div class="title">Rick and Morty</div>
         <div class="cards">
             <div class="card_item" v-for="char in getCharacters" :key="char.id">
                 <div class="card_inner">
                     <img  :src="char.image" alt="Avatar">
-                    <div class="name">{{ char.name}}</div>
-                    <div class="status">{{ char.status}}</div>
+                    <router-link :to="{ name : 'CharacterPage', params : { id : char.id }}">
+						<div class="name">{{ char.name}}</div>
+					</router-link>
+                    <div class="status">{{ char.species}}</div>
                     <div>
                         Episode :  
                         <p class="episode" v-for="(ep, i) in char.episode.slice(0, 5)" :key="i" >
@@ -61,20 +62,6 @@ export default {
 
 <style scoped>
 
-.wrapper .title{
-	width: 100%;
-	height: 50px;
-	background: #e36686;
-	color: #fff;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 20px;
-	text-transform: uppercase;
-	letter-spacing: 5px;
-	font-weight: 900;
-}
 
 .cards{
 	padding: 20px;
@@ -85,8 +72,12 @@ export default {
 }
 
 .cards .card_item{
+	/* border: 1px solid black; */
 	padding: 15px 25px;
-	width: 33%;
+	margin: 10px 10px;
+	width: 30%;
+	display: flex;
+	text-align: center;
 }
 
 .cards .card_inner{

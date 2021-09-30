@@ -3,7 +3,8 @@ import axios from "axios"
 export default {
     state: {
         characters: [],
-        page : 0
+        page: 0,
+        currentCharacter : {}
     },
 
     mutations: {
@@ -17,6 +18,10 @@ export default {
 
         addNewChars(state, data) {
             state.characters.push(...data)
+        },
+
+        setCurrentCharacter(state, data) {
+            state.currentCharacter = data
         }
 
     },
@@ -31,11 +36,21 @@ export default {
         async fetchNewCharacters(context) {
             context.commit("setPage")
             let res = await axios.get(`character/?page=${context.state.page}`)
+            console.log(
+                res.data.results
+            );
             context.commit("addNewChars", res.data.results)
         },
+
+        async fetchCharacterDetail(context, id) {
+            let { data } = await axios.get(`character/${id.id}`)
+            console.log(data);
+            context.commit("setCurrentCharacter", data)
+        }
     },
 
     getters: {
-        getCharacters : state => state.characters
+        getCharacters: state => state.characters,
+        getCurrentCharacter : state => state.currentCharacter
     }
 }
