@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<div class="search">
-			<input type="text" placeholder="Введите имя" v-model="searchName">
-			<div class="custom-select">
-				<select v-model="searchStatus">
-					<option>Статус:</option>
-					<option value="alive">Жив</option>
-					<option value="dead">Мёртв</option>
-					<option value="unknown">Неизвестно</option>
-				</select>
-			</div>
-			<button @click="searchCharacters">Поиск</button>
+			<input type="text" class="custom-input" placeholder="Введите имя" v-model="searchName">
+			<select v-model="searchStatus" class="custom-select" name="Статус">
+				<option disabled>Выберите статус</option>
+				<option value="alive">Жив</option>
+				<option value="dead">Мёртв</option>
+				<option value="unknown">Неизвестно</option>
+			</select>
+			<button 
+				class="custom-button"
+				@click="searchCharacters">Поиск</button>
 		</div>
 		<div class="wrapper">
 			<div class="cards">
@@ -93,6 +93,42 @@ export default {
 
 <style scoped>
 
+.search {
+	display: flex;
+	align-items: center;
+}
+
+.search .custom-input {
+	padding : 10px	;
+	margin: 10px 10px;
+	width: 60%;
+	display: block;
+	border: 0;
+	border-bottom: 1px solid rgb(36, 34, 34);
+	font-size: 16px;
+}
+
+.search .custom-select {
+	padding : 5px;
+	border-radius: 10px;
+	width : 150px;
+	font-size: 14px;
+}
+
+.search .custom-button {
+	appearance:none;
+  -webkit-appearance:none;
+  padding:10px;
+  border:none;
+  background-color:#95d135;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width: 80px;
+  margin-left : 10px;
+  
+}
+
 .cards{
 	padding: 20px;
 	width: 100%;
@@ -149,15 +185,5 @@ export default {
 	color: #7b8ca0;
 }
 
-.search {
-	display: flex;
-}
-
-.search input {
-	margin-left: 30px;
-	width: 60%;
-	display: block;
-
-}
 
 </style>
