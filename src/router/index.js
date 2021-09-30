@@ -20,7 +20,7 @@ const routes = [
 
   {
     path: '/episode/:id',
-    name: "Episodedetail",
+    name: "EpisodeDetail",
     props : true,
     component : episode,
   }

@@ -10,9 +10,11 @@
                     <div class="status">{{ char.species}}</div>
                     <div>
                         Episode :  
-                        <p class="episode" v-for="(ep, i) in char.episode.slice(0, 5)" :key="i" >
-                            {{getEpisod(ep)}}&nbsp;
-                        </p>
+						<router-link
+							class="episode" v-for="(ep, i) in char.episode.slice(0, 5)" :key="i" 
+							:to="{ name : 'EpisodeDetail', params : {id : getEpisodId(ep) }}">
+							{{getEpisodId(ep)}}&nbsp;
+						</router-link>
                     </div>
                 </div>
             </div>
@@ -33,7 +35,7 @@ export default {
     methods : {
         ...mapActions(["fetchCharacters", "fetchNewCharacters"]),
 
-        getEpisod(url){
+        getEpisodId(url){
             let num = url.match(/\d+$/)[0]
             return num
         },

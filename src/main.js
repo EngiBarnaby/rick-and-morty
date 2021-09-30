@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from "axios"
+// import axios from "axios"
 
-axios.defaults.baseURL = 'https://rickandmortyapi.com/api/'
+// axios.defaults.baseURL = 'https://rickandmortyapi.com/api/'
 Vue.config.productionTip = false
 
 new Vue({
