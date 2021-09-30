@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <div class="title">Rick and Morty</div>
+    <router-link 
+      style="text-decoration: none; color: inherit;"
+      to="/">
+        <div class="title">Rick and Morty</div>
+    </router-link>
     <router-view/>
   </div>
 </template>

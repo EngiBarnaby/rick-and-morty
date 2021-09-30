@@ -6,7 +6,8 @@ export default {
         page: 0,
         currentCharacter: {},
         currentEpisode: {},
-        currentEpisodImages: []
+        currentEpisodImages: [],
+        searchStatus : false
     },
 
     mutations: {
@@ -32,7 +33,24 @@ export default {
         
         setCurrentEpisodeImages(state, data) {
             state.currentEpisodImages.push(data)
-        }
+        },
+
+        removeOldImages(state) {
+            state.currentEpisodImages = []
+        },
+
+        setSearchCaracters(state, data) {
+            state.characters = []
+            state.characters = data
+        },
+
+        setTrueSearchStatus(state) {
+            state.searchStatus = true 
+        },
+
+        setFalseSearchStatus(state) {
+            state.searchStatus = false 
+        },
 
     },
 
@@ -40,6 +58,7 @@ export default {
         async fetchCharacters(context) {
             context.commit("setPage")
             let res = await axios.get(`https://rickandmortyapi.com/api/character/?page=1`)
+            context.commit("setFalseSearchStatus")
             context.commit("setCharacters", res.data.results)
         },
 
@@ -65,14 +84,23 @@ export default {
 
         async fetchCharactersImg(context, url) {
             let { data } = await axios.get(url.url)
-            context.commit("setCurrentEpisodeImages", data.image)
+            console.log(data);
+            context.commit("setCurrentEpisodeImages", { "id": data.id, "image" : data.image})
         },
+
+        async fetchSearchCaracters(context, query) {
+            let { data } = await axios.get(`https://rickandmortyapi.com/api/character/?name=${query.name}&status=${query.status}`)
+            console.log(data);
+            context.commit("setTrueSearchStatus")
+            context.commit("setSearchCaracters", data.results)
+        }
     },
 
     getters: {
         getCharacters: state => state.characters,
         getCurrentCharacter: state => state.currentCharacter,
         getCurrentEpisode: state => state.currentEpisode,
-        getCurrentEpisodImages: state => state.currentEpisodImages
+        getCurrentEpisodImages: state => state.currentEpisodImages,
+        getSearchStatus: state => state.searchStatus
     }
 }
