@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="title">Rick and Morty</div>
         <div class="cards">
-            <div class="card_item" v-for="char in getCharacters[0]" :key="char.id">
+            <div class="card_item" v-for="char in getCharacters" :key="char.id">
                 <div class="card_inner">
                     <img  :src="char.image" alt="Avatar">
                     <div class="name">{{ char.name}}</div>
@@ -30,19 +30,31 @@ export default {
     },
 
     methods : {
-        ...mapActions(["fetchCharacters", "fetchNextCahars"]),
+        ...mapActions(["fetchCharacters", "fetchNewCharacters"]),
 
         getEpisod(url){
             let num = url.match(/\d+$/)[0]
             return num
         },
 
+		getNextCharacters() {
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    this.fetchNewCharacters()
+                }
+            }
+        }
+
     },
 
     created(){
-        console.log("aaa");
         this.fetchCharacters()
     },
+
+	mounted(){
+		this.getNextCharacters()
+	},
 
 }
 </script>
