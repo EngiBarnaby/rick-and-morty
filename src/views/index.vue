@@ -2,8 +2,8 @@
     <div class="wrapper">
         <div class="title">Rick and Morty</div>
         <div class="cards">
-            <!-- <div class="card_item" v-for="char in getCharacters" :key="char.id">
-                <dix class="card_inner">
+            <div class="card_item" v-for="char in getCharacters[0]" :key="char.id">
+                <div class="card_inner">
                     <img  :src="char.image" alt="Avatar">
                     <div class="name">{{ char.name}}</div>
                     <div class="status">{{ char.status}}</div>
@@ -13,15 +13,37 @@
                             {{getEpisod(ep)}}&nbsp;
                         </p>
                     </div>
-                </dix>
-            </div> -->
+                </div>
+            </div>
         </div>
     </div>
+    
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
 export default {
     name : "MainPage",
+
+        computed : {
+        ...mapGetters(["getCharacters"])
+    },
+
+    methods : {
+        ...mapActions(["fetchCharacters", "fetchNextCahars"]),
+
+        getEpisod(url){
+            let num = url.match(/\d+$/)[0]
+            return num
+        },
+
+    },
+
+    created(){
+        console.log("aaa");
+        this.fetchCharacters()
+    },
+
 }
 </script>
 
